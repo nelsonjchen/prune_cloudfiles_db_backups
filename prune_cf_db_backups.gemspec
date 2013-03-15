@@ -8,10 +8,10 @@ Gem::Specification.new do |spec|
   spec.version       = PruneCfDbBackups::VERSION
   spec.authors       = ["Nelson Chen"]
   spec.email         = ["crazysim@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = "Prunes SmartReceipts DB Backups"
+  spec.summary       = spec.description
   spec.homepage      = ""
-  spec.license       = "MIT"
+  spec.license       = "All Rights Reserved"
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
