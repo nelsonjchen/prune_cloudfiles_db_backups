@@ -1,6 +1,8 @@
 
 module PruneCfDbBackups
   class Pruner
-      # To change this template use File | Settings | File Templates.
+    def initialize(user, key, container, confirm)
+
+    end
   end
 end

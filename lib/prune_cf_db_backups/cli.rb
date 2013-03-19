@@ -1,4 +1,5 @@
 require 'slop'
+require 'prune_cf_db_backups/pruner'
 
 module PruneCfDbBackups
   class CLI
@@ -11,6 +12,7 @@ module PruneCfDbBackups
         on 'y', 'yes', 'WARNING: Actually delete files from Rackspace Cloud. Without this option, only a listing of files to be deleted are given'
       end
 
+      PruneCfDbBackups::Pruner.new(opts[:user], opts[:key], opts[:container], opts[:yes])
     end
   end
 end
