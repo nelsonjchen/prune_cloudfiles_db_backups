@@ -1,3 +1,4 @@
+require 'cloudfiles'
 
 module PruneCfDbBackups
   class Pruner
