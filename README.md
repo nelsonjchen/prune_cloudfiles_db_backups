@@ -1,6 +1,12 @@
 # PruneCfDbBackups
 
-TODO: Write a gem description
+This gem helps prune useless database backups from Cloudfiles. When this gem was written, there were 2TB of backups.
+
+In our ideal setup, we do backup retention:
+
+* Keep hourly files for two weeks.
+* Keep weekly backups for 8 weeks.
+* Keep monthy backups for 12 months.
 
 ## Installation
 
