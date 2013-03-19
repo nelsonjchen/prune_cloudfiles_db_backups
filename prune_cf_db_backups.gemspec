@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec"
 
   spec.add_dependency "cloudfiles", "~> 1.5.0.1"
+  spec.add_dependency "slop" "~> 3.4.4"
 end
