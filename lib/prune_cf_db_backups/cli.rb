@@ -8,7 +8,8 @@ module PruneCfDbBackups
           banner "Usage: prune_cf_db_backups [options]"
           on 'u', 'user', "Rackspace user to use. Default: ENV[N_RACKSPACE_API_USERNAME] || aguilar"
           on 'k', 'key', "Rackspace key to use. Default: ENV[N_RACKSPACE_API_KEY]"
-          on 'c', 'commit', 'WARNING: Actually delete files from Rackspace Cloud. Without this option, only a listing of files to be deleted are given'
+          on 'c', 'container', "Rackspace key to use. Default: database_backups"
+          on 'y', 'yes', 'WARNING: Actually delete files from Rackspace Cloud. Without this option, only a listing of files to be deleted are given'
         end
         puts opts.to_h
       end
