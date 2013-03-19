@@ -1,8 +1,16 @@
+require 'slop'
+
 module PruneCfDbBackups
   module CLI
     class Base
       def self.start
-        puts "Hello World"
+        opts = Slop.parse(strict: true, help: true) do
+          banner "Usage: prune_cf_db_backups [options]"
+          on 'u', 'user', "Rackspace user to use. Default: ENV[N_RACKSPACE_API_USERNAME] || aguilar"
+          on 'k', 'key', "Rackspace key to use. Default: ENV[N_RACKSPACE_API_KEY]"
+          on 'c', 'commit', 'WARNING: Actually delete files from Rackspace Cloud. Without this option, only a listing of files to be deleted are given'
+        end
+        puts opts.to_h
       end
     end
   end
