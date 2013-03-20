@@ -21,10 +21,12 @@ module PruneCloudfilesDbBackups
       }
 
       week_retention.times { |i|
+        # Sunday on the last couple of weeks
         keep_list.push Time.now.utc.at_beginning_of_week(:sunday).advance(:weeks => -i)
       }
 
       month_retention.times { |i|
+        # First Sunday of every month
         keep_list.push Time.now.utc.at_beginning_of_month.advance(:months => -i).advance(:days => 6).beginning_of_week(:sunday)
       }
 
