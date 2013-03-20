@@ -7,7 +7,7 @@ module PruneCloudfilesDbBackups
     def initialize(objects)
       @keep_objects = objects.select do |o|
         date = /(\d{8})/.match(o)[0]
-        keep_dates.include?(date)
+        keep_dates.map {|d| d.strftime("%Y%m%d")}.include?(date)
       end
 
       @delete_objects = objects - @keep_objects
@@ -36,9 +36,7 @@ module PruneCloudfilesDbBackups
         keep_list.push Time.now.utc.at_beginning_of_month.advance(:months => -i).advance(:days => 6).beginning_of_week(:sunday)
       }
 
-      keep_list.map do |time|
-        time.strftime("%Y%m%d")
-      end
+      keep_list
     end
   end
 
@@ -75,6 +73,8 @@ module PruneCloudfilesDbBackups
           puts "To be deleted: #{o}"
         end
       end
+
+      puts "Count: TBD - #{results.delete_objects.size} Keep - #{results.keep_objects.size}"
     end
   end
 
