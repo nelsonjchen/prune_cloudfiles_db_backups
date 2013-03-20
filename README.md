@@ -2,11 +2,15 @@
 
 This gem helps prune useless database backups from Cloudfiles.
 
-In our ideal setup, we do backup retention on:
+This does retains backup retention:
 
 * Keep hourly files for two weeks.
 * Keep weekly backups for 8 weeks.
 * Keep monthy backups for 12 months.
+
+## Serious Issues
+
+What to do about timezones?
 
 ## Installation
 
