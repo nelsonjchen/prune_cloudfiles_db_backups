@@ -9,7 +9,7 @@ module PruneCfDbBackups
       objects = container.list_objects
 
 
-      # Based of of http://www.infi.nl/blog/view/id/23/Backup_retention_script
+      # Based off of http://www.infi.nl/blog/view/id/23/Backup_retention_script
       keep_list = []
 
       day_retention = 14
