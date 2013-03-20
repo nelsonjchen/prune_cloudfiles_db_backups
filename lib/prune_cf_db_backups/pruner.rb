@@ -39,7 +39,19 @@ module PruneCfDbBackups
 
       delete_objects = objects - keep_objects
 
-      puts delete_objects
+      keep_objects.map do |o|
+        puts "Keeping: #{o}"
+      end
+
+      if opts[:yes]
+        delete_objects.map do |o|
+          puts "Deleting: #{o}"
+        end
+      else
+        delete_objects.map do |o|
+          puts "To be deleted: #{o}"
+        end
+      end
     end
   end
 end

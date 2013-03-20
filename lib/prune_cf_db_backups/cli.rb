@@ -12,7 +12,6 @@ module PruneCfDbBackups
         on :y, :yes, 'WARNING: Actually delete files from Rackspace Cloud. Without this option, only a listing of files to be deleted are given'
       end
 
-      puts opts.to_h
       PruneCfDbBackups::Pruner.new(opts)
     end
   end
