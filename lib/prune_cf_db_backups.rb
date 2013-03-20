@@ -1,5 +1,5 @@
-require "prune_cf_db_backups/version"
+require "prune_cloudfiles_db_backups/version"
 
-module PruneCfDbBackups
+module PruneCloudfilesDbBackups
   # Your code goes here...
 end

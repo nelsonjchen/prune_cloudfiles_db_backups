@@ -2,6 +2,6 @@
 
 $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
 
-require 'prune_cf_db_backups/cli'
+require 'prune_cloudfiles_db_backups/cli'
 
-PruneCfDbBackups::CLI.start
+PruneCloudfilesDbBackups::CLI.start

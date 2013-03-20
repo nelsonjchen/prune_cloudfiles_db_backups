@@ -1,7 +1,7 @@
 require 'cloudfiles'
 require 'active_support/time'
 
-module PruneCfDbBackups
+module PruneCloudfilesDbBackups
   class Pruner
     def initialize(opts)
       @cf = CloudFiles::Connection.new(username: opts[:user], api_key: opts[:key])

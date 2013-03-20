@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'prune_cf_db_backups/version'
+require 'prune_cloudfiles_db_backups/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "prune_cf_db_backups"
-  spec.version       = PruneCfDbBackups::VERSION
+  spec.name          = "prune_cloudfiles_db_backups"
+  spec.version       = PruneCloudfilesDbBackups::VERSION
   spec.authors       = ["Nelson Chen"]
   spec.email         = ["crazysim@gmail.com"]
   spec.description   = "Prunes SmartReceipts DB Backups"

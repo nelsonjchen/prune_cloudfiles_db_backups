@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in prune_cf_db_backups.gemspec
+# Specify your gem's dependencies in prune_cloudfiles_db_backups.gemspec
 gemspec
