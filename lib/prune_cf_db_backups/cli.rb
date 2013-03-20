@@ -13,7 +13,7 @@ module PruneCfDbBackups
       end
 
       puts opts.to_h
-      PruneCfDbBackups::Pruner.new(opts[:user], opts[:key], opts[:container], opts[:yes])
+      PruneCfDbBackups::Pruner.new(opts)
     end
   end
 end
