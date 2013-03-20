@@ -17,15 +17,15 @@ module PruneCloudfilesDbBackups
       month_retention = 12
 
       day_retention.times { |i|
-        keep_list.push Time.now.at_midnight.advance(:days => -i)
+        keep_list.push Time.now.utc.at_midnight.advance(:days => -i)
       }
 
       week_retention.times { |i|
-        keep_list.push Time.now.at_beginning_of_week.advance(:weeks => -i)
+        keep_list.push Time.now.utc.at_beginning_of_week.advance(:weeks => -i)
       }
 
       month_retention.times { |i|
-        keep_list.push Time.now.at_beginning_of_month.advance(:months => -i).advance(:days => 6).beginning_of_week
+        keep_list.push Time.now.utc.at_beginning_of_month.advance(:months => -i).advance(:days => 6).beginning_of_week
       }
 
       keep_fdate = keep_list.map do |time|
