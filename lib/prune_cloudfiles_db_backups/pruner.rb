@@ -46,7 +46,8 @@ module PruneCloudfilesDbBackups
       if opts[:yes]
         delete_objects.map do |o|
           puts "Deleting: #{o}"
-          container.delete_object(o)
+          # Not until I'm comfortable
+          #container.delete_object(o)
         end
       else
         delete_objects.map do |o|
