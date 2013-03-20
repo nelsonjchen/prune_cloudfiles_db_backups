@@ -2,13 +2,19 @@ require 'cloudfiles'
 require 'active_support/time'
 
 module PruneCloudfilesDbBackups
-  class Pruner
-    def initialize(opts)
-      @cf = CloudFiles::Connection.new(username: opts[:user], api_key: opts[:key])
-      container = @cf.container(opts[:container])
-      objects = container.list_objects
+  class RetentionCalculator
+    attr_reader :result
+    def initialize(objects)
+      @keep_objects = objects.select do |o|
+        date = /(\d{8})/.match(o)[0]
+        keep_dates.include?(date)
+      end
 
+      @delete_objects = objects - @keep_objects
+      @result = RetentionCalculatorResult.new(@delete_objects, @keep_objects)
+    end
 
+    def keep_dates
       # Based off of http://www.infi.nl/blog/view/id/23/Backup_retention_script
       keep_list = []
 
@@ -30,32 +36,46 @@ module PruneCloudfilesDbBackups
         keep_list.push Time.now.utc.at_beginning_of_month.advance(:months => -i).advance(:days => 6).beginning_of_week(:sunday)
       }
 
-      keep_fdate = keep_list.map do |time|
+      keep_list.map do |time|
         time.strftime("%Y%m%d")
       end
+    end
+  end
 
-      keep_objects = objects.select do |o|
-        date = /(\d{8})/.match(o)[0]
-        keep_fdate.include?(date)
-      end
+  class RetentionCalculatorResult
+    attr_reader :delete_objects, :keep_objects
+    def initialize(delete_objects, keep_objects)
+      @delete_objects = delete_objects
+      @keep_objects = keep_objects
+    end
+  end
 
-      delete_objects = objects - keep_objects
+  class Pruner
+    def initialize(opts)
+      @cf = CloudFiles::Connection.new(username: opts[:user], api_key: opts[:key])
+      container = @cf.container(opts[:container])
+      objects = container.list_objects
 
-      keep_objects.map do |o|
+      # Based off of http://www.infi.nl/blog/view/id/23/Backup_retention_script
+      calc = RetentionCalculator.new(objects)
+      results = calc.result
+
+      results.keep_objects.map do |o|
         puts "Keeping: #{o}"
       end
 
       if opts[:yes]
-        delete_objects.map do |o|
+        results.delete_objects.map do |o|
           puts "Deleting: #{o}"
           # Not until I'm comfortable
           #container.delete_object(o)
         end
       else
-        delete_objects.map do |o|
+        results.delete_objects.map do |o|
           puts "To be deleted: #{o}"
         end
       end
     end
   end
+
 end
