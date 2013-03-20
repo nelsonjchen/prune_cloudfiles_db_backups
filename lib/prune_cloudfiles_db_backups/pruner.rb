@@ -4,10 +4,11 @@ require 'active_support/time'
 module PruneCloudfilesDbBackups
   class RetentionCalculator
     attr_reader :result
+
     def initialize(objects)
       @keep_objects = objects.select do |o|
         date = /(\d{8})/.match(o)[0]
-        keep_dates.map {|d| d.strftime("%Y%m%d")}.include?(date)
+        keep_dates.map { |d| d.strftime("%Y%m%d") }.include?(date)
       end
 
       @delete_objects = objects - @keep_objects
@@ -42,6 +43,7 @@ module PruneCloudfilesDbBackups
 
   class RetentionCalculatorResult
     attr_reader :delete_objects, :keep_objects
+
     def initialize(delete_objects, keep_objects)
       @delete_objects = delete_objects
       @keep_objects = keep_objects
@@ -55,8 +57,8 @@ module PruneCloudfilesDbBackups
       objects = container.list_objects
 
       # Based off of http://www.infi.nl/blog/view/id/23/Backup_retention_script
-      calc = RetentionCalculator.new(objects)
-      results = calc.result
+      results = RetentionCalculator.new(objects).result
+
 
       results.keep_objects.map do |o|
         puts "Keeping: #{o}"
