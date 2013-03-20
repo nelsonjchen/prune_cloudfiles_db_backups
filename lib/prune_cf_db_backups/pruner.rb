@@ -34,15 +34,12 @@ module PruneCfDbBackups
 
       keep_objects = objects.select do |o|
         date = /(\d{8})/.match(o)[0]
-        if keep_fdate.include?(date)
-          true
-        else
-          false
-        end
+        keep_fdate.include?(date)
       end
 
-      keep_objects
+      delete_objects = objects - keep_objects
 
+      puts delete_objects
     end
   end
 end
