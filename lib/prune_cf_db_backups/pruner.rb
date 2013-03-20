@@ -4,7 +4,7 @@ require 'active_support/time'
 module PruneCfDbBackups
   class Pruner
     def initialize(opts)
-      @cf = CloudFiles::Connection.new(username:opts[:user], api_key:opts[:key])
+      @cf = CloudFiles::Connection.new(username: opts[:user], api_key: opts[:key])
       container = @cf.container(opts[:container])
       objects = container.list_objects
 
@@ -17,11 +17,11 @@ module PruneCfDbBackups
       month_retention = 12
 
       day_retention.times { |i|
-        keep_list.push Time.now.at_midnight.advance(:days => - i)
+        keep_list.push Time.now.at_midnight.advance(:days => -i)
       }
 
       week_retention.times { |i|
-        keep_list.push Time.now.at_beginning_of_week.advance(:weeks => - i)
+        keep_list.push Time.now.at_beginning_of_week.advance(:weeks => -i)
       }
 
       month_retention.times { |i|
@@ -46,6 +46,7 @@ module PruneCfDbBackups
       if opts[:yes]
         delete_objects.map do |o|
           puts "Deleting: #{o}"
+          container.delete_object(o)
         end
       else
         delete_objects.map do |o|
