@@ -1,9 +1,9 @@
 require 'spec_helper'
-require 'prune_cloudfiles_db_backups/retention_calculator_result'
+require 'prune_cloudfiles_db_backups/retention_calculator_results'
 
 module PruneCloudfilesDbBackups
 
-  describe RetentionCalculatorResult do
+  describe RetentionCalculatorResults do
 
     describe '#delete_objects' do
       it 'has objects for deletion'

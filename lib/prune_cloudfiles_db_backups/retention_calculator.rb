@@ -3,7 +3,7 @@ require 'prune_cloudfiles_db_backups/retention_calculator_results'
 
 module PruneCloudfilesDbBackups
   class RetentionCalculator
-    attr_reader :result
+    attr_reader :results
 
     DAY_RETENTION   = 14
     WEEK_RETENTION  =  8
@@ -16,7 +16,7 @@ module PruneCloudfilesDbBackups
       end
 
       delete_objects = objects - keep_objects
-      @result = RetentionCalculatorResult.new(delete_objects, keep_objects)
+      @results = RetentionCalculatorResults.new(delete_objects, keep_objects)
     end
 
     private

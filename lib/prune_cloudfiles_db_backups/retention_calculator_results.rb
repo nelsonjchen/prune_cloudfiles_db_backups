@@ -1,5 +1,5 @@
 module PruneCloudfilesDbBackups
-  class RetentionCalculatorResult
+  class RetentionCalculatorResults
     attr_reader :delete_objects, :keep_objects
 
     def initialize(delete_objects, keep_objects)
