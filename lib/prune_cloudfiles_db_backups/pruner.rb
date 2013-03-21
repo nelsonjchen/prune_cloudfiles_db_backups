@@ -6,10 +6,9 @@ module PruneCloudfilesDbBackups
     def initialize(opts)
       cf = CloudFiles::Connection.new(username: opts[:user], api_key: opts[:key])
       container = cf.container(opts[:container])
-      objects = container.list_objects
 
       # Based off of http://www.infi.nl/blog/view/id/23/Backup_retention_script
-      results = RetentionCalculator.new(objects).result
+      results = RetentionCalculator.new(container.list_objects).results
 
       results.keep_objects.map do |o|
         puts "Keeping: #{o}"
