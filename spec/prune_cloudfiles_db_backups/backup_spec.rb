@@ -3,14 +3,15 @@ require 'prune_cloudfiles_db_backups/backup'
 
 module PruneCloudfilesDbBackups
   describe Backup do
-    describe '#initialize' do
-      before(:each) do
-        @names = %w{
+    before(:each) do
+      @names = %w{
           reports_production-20120819000003.pgdump
           reports_production-20120819000003.pgdump.000
           reports_production-20120819000003.pgdump.001
         }
-      end
+    end
+
+    describe '#initialize' do
       it 'can create a backup with a set of object names' do
         Backup.new(names:@names)
       end
@@ -22,11 +23,25 @@ module PruneCloudfilesDbBackups
     end
 
     describe '#deletable?' do
-      it 'returns false if either the name, date, or set of object are not  set' do
-
+      before(:each) do
+        @backup = Backup.new(names:@names)
       end
-      it 'returns true if none of the daily, weekly, or monthly flags are set'
-      it 'returns false if no flags are set'
+
+      it 'returns true if none of the daily, weekly, or monthly flags are
+ set' do
+        @backup.deletable?.should be_true
+      end
+
+      describe 'returns false if a flag is set' do
+        %w{daily weekly monthly}.map do |interval|
+          describe "##{interval}" do
+            it "on the #{interval} flag" do
+              @backup.send("#{interval}=", true)
+              @backup.deletable?.should_be false
+            end
+          end
+        end
+      end
     end
 
     describe '#date' do
