@@ -22,7 +22,9 @@ module PruneCloudfilesDbBackups
     end
 
     describe '#deletable?' do
-      it 'returns false if either the name, date, or set of object are not set'
+      it 'returns false if either the name, date, or set of object are not  set' do
+
+      end
       it 'returns true if none of the daily, weekly, or monthly flags are set'
       it 'returns false if no flags are set'
     end

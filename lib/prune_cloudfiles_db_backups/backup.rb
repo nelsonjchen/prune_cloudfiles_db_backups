@@ -1,6 +1,6 @@
 module PruneCloudfilesDbBackups
   class Backup
-    def initialize(*args)
+    def initialize(array)
 
     end
   end
