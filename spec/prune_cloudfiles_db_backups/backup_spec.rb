@@ -36,7 +36,7 @@ module PruneCloudfilesDbBackups
         %w{daily weekly monthly}.map do |interval|
           it "on the #{interval} flag" do
             @backup.send("#{interval}=", true)
-            @backup.deletable?.should_be false
+            @backup.deletable?.should be_false
           end
         end
       end
