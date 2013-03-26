@@ -34,11 +34,9 @@ module PruneCloudfilesDbBackups
 
       describe 'returns false if a flag is set' do
         %w{daily weekly monthly}.map do |interval|
-          describe "##{interval}" do
-            it "on the #{interval} flag" do
-              @backup.send("#{interval}=", true)
-              @backup.deletable?.should_be false
-            end
+          it "on the #{interval} flag" do
+            @backup.send("#{interval}=", true)
+            @backup.deletable?.should_be false
           end
         end
       end
