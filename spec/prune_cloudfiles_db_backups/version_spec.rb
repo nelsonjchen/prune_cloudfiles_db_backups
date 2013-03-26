@@ -1,9 +1,10 @@
 require 'spec_helper'
 require 'prune_cloudfiles_db_backups/version'
 
-describe PruneCloudfilesDbBackups do
-
+module PruneCloudfilesDbBackups
   describe 'VERSION' do
-    it 'returns a string with a valid version'
+    it 'returns a string with a valid version' do
+      VERSION.should be_a(String)
+    end
   end
 end
