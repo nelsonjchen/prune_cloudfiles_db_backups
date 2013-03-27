@@ -6,11 +6,11 @@ module PruneCloudfilesDbBackups
     attr_reader :date
     attr_reader :names
 
-    # Creates a new instance of backup with a grouped list of related files
+    # Creates a new instance of backup with a grouped set of related files
     # @param [Set] names
     # @return [Backup]
     def initialize(names)
-      @names = names[:names]
+      @names = names
       @daily = false
       @weekly = false
       @monthly = false

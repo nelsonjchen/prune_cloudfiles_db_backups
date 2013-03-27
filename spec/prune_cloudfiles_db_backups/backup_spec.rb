@@ -13,18 +13,18 @@ module PruneCloudfilesDbBackups
 
     describe '#initialize' do
       it 'can create a backup with a set of object names' do
-        Backup.new(names:@names)
+        Backup.new(@names)
       end
 
       it 'can create a new backup with no flags set' do
-        b = Backup.new(names:@names)
+        b = Backup.new(@names)
         b.daily || b.weekly || b.monthly == false
       end
     end
 
     describe '#deletable?' do
       before(:each) do
-        @backup = Backup.new(names:@names)
+        @backup = Backup.new(@names)
       end
 
       it 'returns true if none of the daily, weekly, or monthly flags are
@@ -44,7 +44,7 @@ module PruneCloudfilesDbBackups
 
     describe '#date' do
       it 'allows reading of the date' do
-        b = Backup.new(names:@names)
+        b = Backup.new(@names)
         b.date.should == DateTime.strptime('20120819000003', '%Y%m%d%H%M%S')
       end
     end
@@ -52,7 +52,7 @@ module PruneCloudfilesDbBackups
     %w{daily weekly monthly}.map do |interval|
       describe "##{interval}" do
         it "allows setting of the #{interval} flag" do
-          b = Backup.new(names:@names)
+          b = Backup.new(@names)
           b.send("#{interval}=", true)
         end
       end
@@ -60,7 +60,7 @@ module PruneCloudfilesDbBackups
 
     describe '#==' do
       it 'allows an equality comparison of backups that checks each field' do
-        Backup.new(names:@names).should == Backup.new(names:@names)
+        Backup.new(@names).should == Backup.new(@names)
       end
     end
 
