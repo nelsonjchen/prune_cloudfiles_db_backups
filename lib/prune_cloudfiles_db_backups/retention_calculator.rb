@@ -1,5 +1,4 @@
 require 'active_support/time'
-require 'prune_cloudfiles_db_backups/retention_calculator_results'
 
 module PruneCloudfilesDbBackups
   class RetentionCalculator
@@ -18,7 +17,6 @@ module PruneCloudfilesDbBackups
       end
 
       delete_objects = objects - keep_objects
-      @results = RetentionCalculatorResults.new(delete_objects, keep_objects)
     end
 
     private
