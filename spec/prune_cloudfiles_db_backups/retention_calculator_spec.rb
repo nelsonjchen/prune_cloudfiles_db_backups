@@ -15,19 +15,27 @@ module PruneCloudfilesDbBackups
       }
 
       it 'is able to be created on this date with a stubbed Time#now' do
-
+        DateTime.now.should eq(DateTime.parse(self.class.description))
+        RetentionCalculator.new(objects:@objects)
       end
 
-      it 'accepts keyword initialization arguments'
-
-      it 'accepts an Array of Strings'
-
-      describe '#to_delete' do
-
+      it 'accepts keyword initialization arguments' do
+        RetentionCalculator.new(objects:@objects)
       end
 
-      describe '#to_keep' do
+      context 'calculations' do
+        let(:calc) {RetentionCalculator.new(objects:@objects)}
 
+        describe '#to_delete' do
+          it 'contains account_production-20120307000001.pgdump' do
+            @calc.to_delete.include?('account_production-20120307000001.pgdump').should be_true
+          end
+        end
+
+        describe '#to_keep' do
+          @calc.to_keep.include?('trans_production-20130322000006.pgdump
+').should be_true
+        end
       end
     end
 
