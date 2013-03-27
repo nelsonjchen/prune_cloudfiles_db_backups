@@ -7,7 +7,7 @@ module PruneCloudfilesDbBackups
   describe RetentionCalculator do
     context 'March 24, 2013' do
       before(:each) do
-        @time_now = DateTime.parse(self.class.description)
+        @time_now = DateTime.parse('March 24, 2013')
         DateTime.stub!(:now).and_return(@time_now)
       end
 
