@@ -1,4 +1,4 @@
-require "rspec"
+require 'rspec'
 require 'prune_cloudfiles_db_backups/backup'
 
 module PruneCloudfilesDbBackups
@@ -43,7 +43,10 @@ module PruneCloudfilesDbBackups
     end
 
     describe '#date' do
-      it 'allows reading of the date'
+      it 'allows reading of the date' do
+        b = Backup.new(names:@names)
+        b.date.should equal DateTime.strptime('20120819000003', '%Y%m%d%H%M%S')
+      end
     end
 
     %w{daily weekly monthly}.map do |interval|
