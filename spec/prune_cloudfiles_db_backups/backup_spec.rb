@@ -8,7 +8,7 @@ module PruneCloudfilesDbBackups
           reports_production-20120819000003.pgdump
           reports_production-20120819000003.pgdump.000
           reports_production-20120819000003.pgdump.001
-        }
+        }.to_set
     end
 
     describe '#initialize' do
