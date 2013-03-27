@@ -6,11 +6,17 @@ module PruneCloudfilesDbBackups
   describe RetentionCalculator do
     context 'March 24, 2013' do
       before(:each) do
-        @time_now = Time.parse(self.class.description)
-        Time.stub!(:now).and_return(@time_now)
+        @time_now = DateTime.parse(self.class.description)
+        DateTime.stub!(:now).and_return(@time_now)
       end
 
-      it 'is able to be created on this date with a stubbed Time#now'
+      let (:objects) {
+        IO.readlines("#{File.dirname(__FILE__)}/lists/backup_pile.txt")
+      }
+
+      it 'is able to be created on this date with a stubbed Time#now' do
+
+      end
 
       it 'accepts keyword initialization arguments'
 
