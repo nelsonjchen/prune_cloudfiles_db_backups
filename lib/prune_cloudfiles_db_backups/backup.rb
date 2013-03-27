@@ -12,7 +12,7 @@ module PruneCloudfilesDbBackups
       @daily = false
       @weekly = false
       @monthly = false
-      str_date = /.*(\d{14}).*/.match(array[:names].first)[0]
+      str_date = /\d{14}/.match(array[:names].first)[0]
       @date = DateTime.strptime(str_date, '%Y%m%d%H%M%S')
     end
 

@@ -45,7 +45,7 @@ module PruneCloudfilesDbBackups
     describe '#date' do
       it 'allows reading of the date' do
         b = Backup.new(names:@names)
-        b.date.should equal DateTime.strptime('20120819000003', '%Y%m%d%H%M%S')
+        b.date.should == DateTime.strptime('20120819000003', '%Y%m%d%H%M%S')
       end
     end
 
