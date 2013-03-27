@@ -16,7 +16,7 @@ module PruneCloudfilesDbBackups
       }
 
       it 'is able to be created on this date with a stubbed Time#now' do
-        DateTime.now.should eq(DateTime.parse(self.class.description))
+        DateTime.now.should eq(DateTime.parse('March 24, 2013'))
         RetentionCalculator.new(objects)
       end
 
