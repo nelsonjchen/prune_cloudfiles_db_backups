@@ -34,12 +34,12 @@ module PruneCloudfilesDbBackups
             backup = Backup.new(
                 Set.new(
                     %w(
-                  trans_production-20130322000006.pgdump
-                  trans_production-20130322000006.pgdump.000
-                  trans_production-20130322000006.pgdump.001
-                  trans_production-20130322000006.pgdump.003
-                  trans_production-20130322000006.pgdump.004
-                )
+                    trans_production-20130322000006.pgdump
+                    trans_production-20130322000006.pgdump.000
+                    trans_production-20130322000006.pgdump.001
+                    trans_production-20130322000006.pgdump.003
+                    trans_production-20130322000006.pgdump.004
+                  )
                 )
             )
             @calc.to_keep.include?(backup).should be_true
@@ -51,9 +51,9 @@ module PruneCloudfilesDbBackups
             backup = Backup.new(
                 Set.new(
                     %w(
-                reports_production-20120524000003.pgdump
-                reports_production-20120524000003.pgdump.000
-              )
+                    reports_production-20120524000003.pgdump
+                    reports_production-20120524000003.pgdump.000
+                  )
                 )
             )
             @calc.to_delete.include?(backup).should be_true
