@@ -58,5 +58,11 @@ module PruneCloudfilesDbBackups
       end
     end
 
+    describe '#==' do
+      it 'allows an equality comparison of backups that checks each field' do
+        Backup.new(names:@names).should be eq(Backup.new(names:@names))
+      end
+    end
+
   end
 end

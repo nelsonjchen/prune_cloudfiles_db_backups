@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'prune_cloudfiles_db_backups/retention_calculator'
+require 'prune_cloudfiles_db_backups/backup'
 
 module PruneCloudfilesDbBackups
 
@@ -11,7 +12,7 @@ module PruneCloudfilesDbBackups
       end
 
       let (:objects) {
-        IO.readlines("#{File.dirname(__FILE__)}/lists/backup_pile.txt")
+        lines = IO.readlines("#{File.dirname(__FILE__)}/lists/backup_pile.txt")
       }
 
       it 'is able to be created on this date with a stubbed Time#now' do
