@@ -2,6 +2,17 @@ require 'active_support/time'
 
 module PruneCloudfilesDbBackups
   class RetentionCalculator
+    def initialize(objects)
+
+    end
+
+    def to_delete
+
+    end
+
+    def to_keep
+
+    end
     #attr_reader :results
     #
     #DAY_RETENTION   = 14

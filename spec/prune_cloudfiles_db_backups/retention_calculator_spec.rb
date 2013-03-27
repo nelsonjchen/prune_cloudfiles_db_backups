@@ -12,30 +12,52 @@ module PruneCloudfilesDbBackups
       end
 
       let (:objects) {
-        lines = IO.readlines("#{File.dirname(__FILE__)}/lists/backup_pile.txt")
+        IO.readlines("#{File.dirname(__FILE__)}/lists/backup_pile.txt")
       }
 
       it 'is able to be created on this date with a stubbed Time#now' do
         DateTime.now.should eq(DateTime.parse(self.class.description))
-        RetentionCalculator.new(objects:@objects)
+        RetentionCalculator.new(objects)
       end
 
       it 'accepts keyword initialization arguments' do
-        RetentionCalculator.new(objects:@objects)
+        RetentionCalculator.new(objects)
       end
 
       context 'calculations' do
-        let(:calc) {RetentionCalculator.new(objects:@objects)}
-
-        describe '#to_delete' do
-          it 'contains account_production-20120307000001.pgdump' do
-            @calc.to_delete.include?('account_production-20120307000001.pgdump').should be_true
-          end
+        before(:each) do
+          @calc = RetentionCalculator.new(@objects)
         end
 
         describe '#to_keep' do
-          @calc.to_keep.include?('trans_production-20130322000006.pgdump
-').should be_true
+          it 'contains trans_production-20130322000006.pgdump' do
+            backup = Backup.new(
+                Set.new(
+                    %w(
+                  trans_production-20130322000006.pgdump
+                  trans_production-20130322000006.pgdump.000
+                  trans_production-20130322000006.pgdump.001
+                  trans_production-20130322000006.pgdump.003
+                  trans_production-20130322000006.pgdump.004
+                )
+                )
+            )
+            @calc.to_keep.include?(backup).should be_true
+          end
+        end
+
+        describe '#to_delete' do
+          it 'contains reports_production-20120524000003.pgdump' do
+            backup = Backup.new(
+                Set.new(
+                    %w(
+                reports_production-20120524000003.pgdump
+                reports_production-20120524000003.pgdump.000
+              )
+                )
+            )
+            @calc.to_delete.include?(backup).should be_true
+          end
         end
       end
     end
