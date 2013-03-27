@@ -51,7 +51,10 @@ module PruneCloudfilesDbBackups
 
     %w{daily weekly monthly}.map do |interval|
       describe "##{interval}" do
-        it "allows setting of the #{interval} flag"
+        it "allows setting of the #{interval} flag" do
+          b = Backup.new(names:@names)
+          b.send("#{interval}=", true)
+        end
       end
     end
 
