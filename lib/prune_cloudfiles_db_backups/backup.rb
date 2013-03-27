@@ -7,7 +7,7 @@ module PruneCloudfilesDbBackups
     attr_reader :names
 
     # Creates a new instance of backup with a grouped list of related files
-    # @param [Array] names
+    # @param [Set] names
     # @return [Backup]
     def initialize(names)
       @names = names[:names]
