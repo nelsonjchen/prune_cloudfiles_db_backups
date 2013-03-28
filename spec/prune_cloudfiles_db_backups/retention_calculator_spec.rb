@@ -13,7 +13,7 @@ module PruneCloudfilesDbBackups
         DateTime.stub!(:now).and_return(@time_now)
       end
 
-      let (:objects) {
+      let (:object_pile) {
         IO.read("#{File.dirname(__FILE__)}/lists/backup_pile.txt").split("\n")
       }
 
@@ -34,7 +34,7 @@ module PruneCloudfilesDbBackups
         describe '#to_keep' do
           it 'contains trans_production-20130322000006.pgdump' do
             backup = Backup.new(
-                objects:
+                object_pile:
                 Set.new(
                     %w(
                     trans_production-20130322000006.pgdump
@@ -52,7 +52,7 @@ module PruneCloudfilesDbBackups
         describe '#to_delete' do
           it 'contains reports_production-20120524000003.pgdump' do
             backup = Backup.new(
-                objects:
+                object_pile:
                 Set.new(
                     %w(
                     reports_production-20120524000003.pgdump
