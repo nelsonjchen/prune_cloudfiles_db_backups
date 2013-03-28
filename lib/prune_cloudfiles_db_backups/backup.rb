@@ -3,7 +3,7 @@ require 'date'
 module PruneCloudfilesDbBackups
   class Backup
     attr_reader :daily, :weekly, :monthly
-    attr_reader :date
+    attr_reader :datetime
     attr_reader :objects
     attr_reader :name
 
@@ -18,11 +18,22 @@ module PruneCloudfilesDbBackups
     # @return [Backup]
     def initialize(options = {})
       @objects = options[:objects] || (raise ArgumentError, 'Objects not specified')
-      @name = options[:name] || (raise ArgumentError, 'Name not specified')
-      @date = options[:date] || (raise ArgumentError, 'Date not specified')
+      @name = options[:name] || self.class.parse_for_name(@objects)
+      @datetime = options[:datetime] || self.class.parse_for_datetime(@objects)
       @monthly = options[:monthly]
       @weekly = options[:weekly]
       @daily = options[:daily]
+    end
+
+    # @param [Enumerable] objects
+    def self.parse_for_name(objects)
+      /(^.+\.pgdump).*/.match(objects.first)[1]
+    end
+
+    # @param [Enumerable] objects
+    def self.parse_for_datetime(objects)
+      str_date = /\d{14}/.match(objects.first)[0]
+      DateTime.strptime(str_date, '%Y%m%d%H%M%S')
     end
 
     def dbname
@@ -49,7 +60,7 @@ module PruneCloudfilesDbBackups
       mwd << '-' unless @monthly
       mwd << ']'
 
-      "#{mwd} #{dbname} #{@date.rfc822} (#{objects.size} item(s))"
+      "#{mwd} #{dbname} #{@datetime.rfc822} (#{objects.size} item(s))"
     end
   end
 end

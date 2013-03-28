@@ -9,7 +9,7 @@ module PruneCloudfilesDbBackups
           reports_production-20120819000003.pgdump.000
           reports_production-20120819000003.pgdump.001
         }.to_set
-      @date = DateTime.strptime('20120819000003', '%Y%m%d%H%M%S')
+      @datetime = DateTime.strptime('20120819000003', '%Y%m%d%H%M%S')
       @name = 'reports_production-20120819000003'
     end
 
@@ -17,7 +17,7 @@ module PruneCloudfilesDbBackups
       it 'is created with a hash' do
         Backup.new({ objects: @objects,
                      name: @name,
-                     date: @date,
+                     datetime: @datetime,
                      monthly: false,
                      weekly: false,
                      daily: false
@@ -30,7 +30,7 @@ module PruneCloudfilesDbBackups
  false' do
         backup = Backup.new({ objects: @objects,
                               name: @name,
-                              date: @date,
+                              datetime: @datetime,
                               monthly: false,
                               weekly: false,
                               daily: false
@@ -42,7 +42,7 @@ module PruneCloudfilesDbBackups
       it 'returns false if a certain flag (say, monthly) is set' do
         backup = Backup.new({ objects: @objects,
                               name: @name,
-                              date: @date,
+                              datetime: @datetime,
                               monthly: true,
                               weekly: false,
                               daily: false
@@ -54,8 +54,8 @@ module PruneCloudfilesDbBackups
 
     describe '#==' do
       it 'allows an equality comparison of backups that checks each field' do
-        one = Backup.new(objects: @objects, name: @name, date: @date)
-        two= Backup.new(objects: @objects, name: @name, date: @date)
+        one = Backup.new(objects: @objects, name: @name, datetime: @datetime)
+        two= Backup.new(objects: @objects, name: @name, datetime: @datetime)
         one.should == two
       end
     end

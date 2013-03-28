@@ -32,6 +32,7 @@ module PruneCloudfilesDbBackups
         describe '#to_keep' do
           it 'contains trans_production-20130322000006.pgdump' do
             backup = Backup.new(
+                objects:
                 Set.new(
                     %w(
                     trans_production-20130322000006.pgdump
