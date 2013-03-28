@@ -10,8 +10,8 @@ module PruneCloudfilesDbBackups
     # Creates a new instance of backup with a grouped set of related files
     # @param [Hash] options in the form of a hash
     # @option options [Set] :objects
-    # @option options [String] :name
-    # @option options [DateTime] :date
+    # @option options [String] :name is optional and will be gleaned from objects if not specified
+    # @option options [DateTime] :date is optional and will be gleaned from objects if not specified
     # @option options [Boolean] :monthly
     # @option options [Boolean] :weekly
     # @option options [Boolean] :daily
