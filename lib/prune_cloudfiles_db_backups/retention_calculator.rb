@@ -9,10 +9,10 @@ module PruneCloudfilesDbBackups
     # @param [Integer] day_retention
     # @param [Integer] week_retention
     # @param [Integer] month_retention
-    def initialize( objects,
-                    day_retention = 14,
-                    week_retention = 8,
-                    month_retention = 12)
+    def initialize(objects,
+        day_retention = 14,
+        week_retention = 8,
+        month_retention = 12)
       @day_retention = day_retention
       @week_retention = week_retention
       @month_retention = month_retention
@@ -31,7 +31,11 @@ module PruneCloudfilesDbBackups
         weekly = keep_weekly_dates.include?(datetime.to_date)
         monthly = keep_monthly_dates.include?(datetime.to_date)
 
-        Backup.new(objects: objects, datetime: datetime, daily: daily, weekly: weekly, monthly: monthly)
+        Backup.new(objects: objects,
+                   datetime: datetime,
+                   daily: daily,
+                   weekly: weekly,
+                   monthly: monthly)
       end.to_set
 
     end
