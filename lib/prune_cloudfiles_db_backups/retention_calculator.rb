@@ -21,28 +21,28 @@ module PruneCloudfilesDbBackups
       @backup_sets_by_date = backup_sets.group_by do |set|
          set.date.to_date
       end
-      keep_daily_dates.size
+      keep_daily_dates
 
     end
 
     # Based off of http://www.infi.nl/blog/view/id/23/Backup_retention_script
     def keep_daily_dates
-      (0...DAY_RETENTION).map do |i|
-        now.at_midnight.advance(days: -i).to_date
+      @daily_dates ||= (0...DAY_RETENTION).map do |i|
+        @now.at_midnight.advance(days: -i).to_date
       end
     end
 
     def keep_weekly_dates
-      (0...WEEK_RETENTION).map do |i|
+      @weekly_dates ||= (0...WEEK_RETENTION).map do |i|
         # Sunday on the last couple of weeks
-        now.at_beginning_of_week(:sunday).advance(weeks: -i).to_date
+        @now.at_beginning_of_week(:sunday).advance(weeks: -i).to_date
       end
     end
 
     def keep_monthly_dates
-      (0...MONTH_RETENTION).map do |i|
+      @monthly_dates ||= (0...MONTH_RETENTION).map do |i|
         # First Sunday of every month
-        now.at_beginning_of_month.advance(months: -i).advance(days: 6).beginning_of_week(:sunday).to_date
+        @now.at_beginning_of_month.advance(months: -i).advance(days: 6).beginning_of_week(:sunday).to_date
       end
     end
 
