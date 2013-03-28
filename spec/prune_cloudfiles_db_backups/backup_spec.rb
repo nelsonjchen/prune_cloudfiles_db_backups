@@ -29,24 +29,24 @@ module PruneCloudfilesDbBackups
       it 'returns true if none of the daily, weekly, or monthly flags are
  false' do
         backup = Backup.new({ objects: @objects,
-                               name: @name,
-                               date: @date,
-                               monthly: false,
-                               weekly: false,
-                               daily: false
-                             })
+                              name: @name,
+                              date: @date,
+                              monthly: false,
+                              weekly: false,
+                              daily: false
+                            })
 
         backup.deletable?.should be_true
       end
 
       it 'returns false if a certain flag (say, monthly) is set' do
         backup = Backup.new({ objects: @objects,
-                               name: @name,
-                               date: @date,
-                               monthly: true,
-                               weekly: false,
-                               daily: false
-                             })
+                              name: @name,
+                              date: @date,
+                              monthly: true,
+                              weekly: false,
+                              daily: false
+                            })
 
         backup.deletable?.should be_false
       end
@@ -54,7 +54,9 @@ module PruneCloudfilesDbBackups
 
     describe '#==' do
       it 'allows an equality comparison of backups that checks each field' do
-        Backup.new(@objects).should == Backup.new(@objects)
+        one = Backup.new(objects: @objects, name: @name, date: @date)
+        two= Backup.new(objects: @objects, name: @name, date: @date)
+        one.should == two
       end
     end
 

@@ -2,23 +2,31 @@ require 'date'
 
 module PruneCloudfilesDbBackups
   class Backup
-    attr_accessor :daily, :weekly, :monthly
+    attr_reader :daily, :weekly, :monthly
     attr_reader :date
     attr_reader :objects
-    attr_reader :dbname
+    attr_reader :name
 
     # Creates a new instance of backup with a grouped set of related files
-    # @param [Set] object_set
+    # @param [Hash] options in the form of a hash
+    # @option options [Set] :objects
+    # @option options [String] :name
+    # @option options [DateTime] :date
+    # @option options [Boolean] :monthly
+    # @option options [Boolean] :weekly
+    # @option options [Boolean] :daily
     # @return [Backup]
-    def initialize(object_set)
-      @objects = object_set
-      @daily = false
-      @weekly = false
-      @monthly = false
-      str_date = /\d{14}/.match(@objects.first)[0]
-      @name = /(^.+\.pgdump).*/.match(@objects.first)[1]
-      @dbname = /(^.+)-\d{14}\.pgdump.*/.match(@objects.first)[1]
-      @date = DateTime.strptime(str_date, '%Y%m%d%H%M%S')
+    def initialize(options = {})
+      @objects = options[:objects] || (raise ArgumentError, 'Objects not specified')
+      @name = options[:name] || (raise ArgumentError, 'Name not specified')
+      @date = options[:date] || (raise ArgumentError, 'Date not specified')
+      @monthly = options[:monthly]
+      @weekly = options[:weekly]
+      @daily = options[:daily]
+    end
+
+    def dbname
+      /(.+)\d{14}/.match(@name)
     end
 
     def deletable?
@@ -30,6 +38,7 @@ module PruneCloudfilesDbBackups
       self.objects == other_backup.objects
     end
 
+    #noinspection RubyResolve
     def to_s
       mwd = '['
       mwd << 'd' if @daily
@@ -40,7 +49,7 @@ module PruneCloudfilesDbBackups
       mwd << '-' unless @monthly
       mwd << ']'
 
-      "#{mwd} #{@dbname} #{@date.rfc822} (#{objects.size} item(s))"
+      "#{mwd} #{dbname} #{@date.rfc822} (#{objects.size} item(s))"
     end
   end
 end
