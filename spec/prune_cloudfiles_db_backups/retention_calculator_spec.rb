@@ -50,6 +50,7 @@ module PruneCloudfilesDbBackups
         describe '#to_delete' do
           it 'contains reports_production-20120524000003.pgdump' do
             backup = Backup.new(
+                objects:
                 Set.new(
                     %w(
                     reports_production-20120524000003.pgdump
