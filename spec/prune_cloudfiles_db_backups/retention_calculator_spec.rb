@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'spec_helper'
 require 'prune_cloudfiles_db_backups/retention_calculator'
 require 'prune_cloudfiles_db_backups/backup'
@@ -12,7 +14,7 @@ module PruneCloudfilesDbBackups
       end
 
       let (:objects) {
-        IO.readlines("#{File.dirname(__FILE__)}/lists/backup_pile.txt")
+        IO.read("#{File.dirname(__FILE__)}/lists/backup_pile.txt").split("\n")
       }
 
       it 'is able to be created on this date with a stubbed Time#now' do
@@ -40,7 +42,7 @@ module PruneCloudfilesDbBackups
                     trans_production-20130322000006.pgdump.001
                     trans_production-20130322000006.pgdump.003
                     trans_production-20130322000006.pgdump.004
-                  )
+                  ).map {|s| s.encode('UTF-8')}
                 )
             )
             @calc.to_keep.include?(backup).should be_true
@@ -55,7 +57,7 @@ module PruneCloudfilesDbBackups
                     %w(
                     reports_production-20120524000003.pgdump
                     reports_production-20120524000003.pgdump.000
-                  )
+                  ).map {|s| s.encode('UTF-8')}
                 )
             )
             @calc.to_delete.include?(backup).should be_true
