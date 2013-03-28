@@ -32,12 +32,12 @@ module PruneCloudfilesDbBackups
 
     def to_s
       mwd = '['
-      mwd << 'm' if @daily
+      mwd << 'd' if @daily
       mwd << '-' unless @daily
-      mwd << 'w' if @daily
-      mwd << '-' unless @daily
-      mwd << 'm' if @daily
-      mwd << '-' unless @daily
+      mwd << 'w' if @weekly
+      mwd << '-' unless @weekly
+      mwd << 'm' if @monthly
+      mwd << '-' unless @monthly
       mwd << ']'
 
       "#{mwd} #{@dbname} #{@date.rfc822} (#{objects.size} item(s))"

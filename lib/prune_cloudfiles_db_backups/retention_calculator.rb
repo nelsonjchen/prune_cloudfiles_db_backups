@@ -14,14 +14,26 @@ module PruneCloudfilesDbBackups
         /(^.+\.pgdump).*/.match(o)[1]
       end
 
-      backup_sets = sets.map do |k, v|
+      @backup_sets = sets.map do |k, v|
         Backup.new(v)
       end
 
-      @backup_sets_by_date = backup_sets.group_by do |set|
-         set.date.to_date
+      # Mark off daily
+      @backup_sets.map do |set|
+        set.daily = keep_daily_dates.include?(set.date.to_date)
       end
-      keep_daily_dates
+
+      # Mark off weekly
+      @backup_sets.map do |set|
+        set.weekly = keep_weekly_dates.include?(set.date.to_date)
+      end
+
+      # Mark off monthly
+      @backup_sets.map do |set|
+        set.monthly = keep_monthly_dates.include?(set.date.to_date)
+      end
+
+      @backup_sets
 
     end
 
