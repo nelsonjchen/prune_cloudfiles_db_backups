@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
 
-  spec.add_dependency "cloudfiles", "~> 1.5.0.1"
+  spec.add_dependency 'openstack', '~> 1.0.9'
   spec.add_dependency "slop", "~> 3.4.4"
   spec.add_dependency "activesupport", "~> 3.2.13"
 end
