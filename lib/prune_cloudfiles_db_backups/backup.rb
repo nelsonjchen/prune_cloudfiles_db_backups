@@ -27,7 +27,7 @@ module PruneCloudfilesDbBackups
 
     # @param [Enumerable] objects
     def self.parse_for_name(objects)
-      objects.first[/(^.+\.pgdump).*/,1]
+      objects.first[/(^.+\.pgdump).*/, 1]
     end
 
     # @param [Enumerable] objects
@@ -37,7 +37,7 @@ module PruneCloudfilesDbBackups
     end
 
     def dbname
-      @name[/(.+)\d{14}/,1]
+      @name[/(.+)\d{14}/, 1]
     end
 
     def deletable?
