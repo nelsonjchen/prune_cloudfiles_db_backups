@@ -15,22 +15,11 @@ module PruneCloudfilesDbBackups
       end
 
       @backup_sets = sets.map do |k, v|
-        Backup.new(v)
-      end
-
-      # Mark off daily
-      @backup_sets.map do |set|
+        set = Backup.new(Set.new(v))
         set.daily = keep_daily_dates.include?(set.date.to_date)
-      end
-
-      # Mark off weekly
-      @backup_sets.map do |set|
         set.weekly = keep_weekly_dates.include?(set.date.to_date)
-      end
-
-      # Mark off monthly
-      @backup_sets.map do |set|
         set.monthly = keep_monthly_dates.include?(set.date.to_date)
+        set
       end
 
     end
