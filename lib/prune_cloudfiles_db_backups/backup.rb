@@ -27,17 +27,17 @@ module PruneCloudfilesDbBackups
 
     # @param [Enumerable] objects
     def self.parse_for_name(objects)
-      /(^.+\.pgdump).*/.match(objects.first)[1]
+      objects.first[/(^.+\.pgdump).*/,1]
     end
 
     # @param [Enumerable] objects
     def self.parse_for_datetime(objects)
-      str_date = /\d{14}/.match(objects.first)[0]
+      str_date = objects.first[/\d{14}/]
       DateTime.strptime(str_date, '%Y%m%d%H%M%S')
     end
 
     def dbname
-      /(.+)\d{14}/.match(@name)
+      @name[/(.+)\d{14}/,1]
     end
 
     def deletable?
