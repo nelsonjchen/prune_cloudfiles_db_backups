@@ -3,7 +3,7 @@ require 'active_support/time'
 module PruneCloudfilesDbBackups
   class RetentionCalculator
 
-    # Initialize the calculator with a list of cloudfile
+    # Initialize the Retention Calculator with a list of cloudfile
     # container objects
     # @param [Array] objects from cloudfiles
     # @param [Integer] day_retention
@@ -37,12 +37,15 @@ module PruneCloudfilesDbBackups
     end
 
     # Based off of http://www.infi.nl/blog/view/id/23/Backup_retention_script
+
+    # @return [Array] a calculated array of days to be kept
     def keep_daily_dates
       @daily_dates ||= (0...@day_retention).map do |i|
         @now.at_midnight.advance(days: -i).to_date
       end
     end
 
+    # @return [Array] a calculated array of days to be kept
     def keep_weekly_dates
       @weekly_dates ||= (0...@week_retention).map do |i|
         # Sunday on the last couple of weeks
@@ -50,6 +53,7 @@ module PruneCloudfilesDbBackups
       end
     end
 
+    # @return [Array] a calculated array of days to be kept
     def keep_monthly_dates
       @monthly_dates ||= (0...@month_retention).map do |i|
         # First Sunday of every month
