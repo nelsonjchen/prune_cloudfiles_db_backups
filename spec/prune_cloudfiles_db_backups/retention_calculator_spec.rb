@@ -42,7 +42,7 @@ module PruneCloudfilesDbBackups
                     trans_production-20130322000006.pgdump.001
                     trans_production-20130322000006.pgdump.003
                     trans_production-20130322000006.pgdump.004
-                  ).map {|s| s.encode('UTF-8')}
+                  )
                 )
             )
             @calc.to_keep.include?(backup).should be_true
@@ -57,7 +57,7 @@ module PruneCloudfilesDbBackups
                     %w(
                     reports_production-20120524000003.pgdump
                     reports_production-20120524000003.pgdump.000
-                  ).map {|s| s.encode('UTF-8')}
+                  )
                 )
             )
             @calc.to_delete.include?(backup).should be_true
