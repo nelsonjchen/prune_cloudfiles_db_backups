@@ -32,33 +32,33 @@ module PruneCloudfilesDbBackups
         monthly = keep_monthly_dates.include?(datetime.to_date)
 
         Backup.new(objects: objects, datetime: datetime, daily: daily, weekly: weekly, monthly: monthly)
-      end
+      end.to_set
 
     end
 
     # Based off of http://www.infi.nl/blog/view/id/23/Backup_retention_script
 
-    # @return [Array] a calculated array of days to be kept
+    # @return [Set] a calculated array of days to be kept
     def keep_daily_dates
       @daily_dates ||= (0...@day_retention).map do |i|
         @now.at_midnight.advance(days: -i).to_date
-      end
+      end.to_set
     end
 
-    # @return [Array] a calculated array of days to be kept
+    # @return [Set] a calculated array of days to be kept
     def keep_weekly_dates
       @weekly_dates ||= (0...@week_retention).map do |i|
         # Sunday on the last couple of weeks
         @now.at_beginning_of_week(:sunday).advance(weeks: -i).to_date
-      end
+      end.to_set
     end
 
-    # @return [Array] a calculated array of days to be kept
+    # @return [Set] a calculated array of days to be kept
     def keep_monthly_dates
       @monthly_dates ||= (0...@month_retention).map do |i|
         # First Sunday of every month
         @now.at_beginning_of_month.advance(months: -i).advance(days: 6).beginning_of_week(:sunday).to_date
-      end
+      end.to_set
     end
 
     # @return [Set] a set of files for deletion
