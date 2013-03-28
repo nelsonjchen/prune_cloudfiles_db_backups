@@ -15,6 +15,8 @@ module PruneCloudfilesDbBackups
       @weekly = false
       @monthly = false
       str_date = /\d{14}/.match(@names.first)[0]
+      @name = /(^.+\.pgdump).*/.match(@names.first)[1]
+      @dbname = /(^.+)-\d{14}\.pgdump.*/.match(@names.first)[1]
       @date = DateTime.strptime(str_date, '%Y%m%d%H%M%S')
     end
 
@@ -25,6 +27,19 @@ module PruneCloudfilesDbBackups
     # @param [Backup] other_backup
     def ==(other_backup)
       self.names == other_backup.names
+    end
+
+    def to_s
+      mwd = '['
+      mwd << 'm' if @daily
+      mwd << '-' unless @daily
+      mwd << 'w' if @daily
+      mwd << '-' unless @daily
+      mwd << 'm' if @daily
+      mwd << '-' unless @daily
+      mwd << ']'
+
+      "#{mwd} #{@dbname} #{@date.rfc822} (#{names.size} item(s))"
     end
   end
 end
