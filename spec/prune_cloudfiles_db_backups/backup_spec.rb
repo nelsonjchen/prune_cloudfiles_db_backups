@@ -9,52 +9,46 @@ module PruneCloudfilesDbBackups
           reports_production-20120819000003.pgdump.000
           reports_production-20120819000003.pgdump.001
         }.to_set
+      @date = DateTime.strptime('20120819000003', '%Y%m%d%H%M%S')
+      @name = 'reports_production-20120819000003'
     end
 
     describe '#initialize' do
-      it 'can create a backup with a set of object names' do
-        Backup.new(@objects)
-      end
-
-      it 'can create a new backup with no flags set' do
-        b = Backup.new(@objects)
-        b.daily || b.weekly || b.monthly == false
+      it 'is created with a hash' do
+        Backup.new({ objects: @objects,
+                     name: @name,
+                     date: @date,
+                     monthly: false,
+                     weekly: false,
+                     daily: false
+                   })
       end
     end
 
     describe '#deletable?' do
-      before(:each) do
-        @backup = Backup.new(@objects)
-      end
-
       it 'returns true if none of the daily, weekly, or monthly flags are
- set' do
-        @backup.deletable?.should be_true
+ false' do
+        backup = Backup.new({ objects: @objects,
+                               name: @name,
+                               date: @date,
+                               monthly: false,
+                               weekly: false,
+                               daily: false
+                             })
+
+        backup.deletable?.should be_true
       end
 
-      describe 'returns false if a flag is set' do
-        %w{daily weekly monthly}.map do |interval|
-          it "on the #{interval} flag" do
-            @backup.send("#{interval}=", true)
-            @backup.deletable?.should be_false
-          end
-        end
-      end
-    end
+      it 'returns false if a certain flag (say, monthly) is set' do
+        backup = Backup.new({ objects: @objects,
+                               name: @name,
+                               date: @date,
+                               monthly: true,
+                               weekly: false,
+                               daily: false
+                             })
 
-    describe '#date' do
-      it 'allows reading of the date' do
-        b = Backup.new(@objects)
-        b.date.should == DateTime.strptime('20120819000003', '%Y%m%d%H%M%S')
-      end
-    end
-
-    %w{daily weekly monthly}.map do |interval|
-      describe "##{interval}" do
-        it "allows setting of the #{interval} flag" do
-          b = Backup.new(@objects)
-          b.send("#{interval}=", true)
-        end
+        backup.deletable?.should be_false
       end
     end
 
