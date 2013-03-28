@@ -15,11 +15,17 @@ module PruneCloudfilesDbBackups
       end
 
       @backup_sets = sets.map do |k, v|
-        set = Backup.new(Set.new(v))
-        set.daily = keep_daily_dates.include?(set.date.to_date)
-        set.weekly = keep_weekly_dates.include?(set.date.to_date)
-        set.monthly = keep_monthly_dates.include?(set.date.to_date)
-        set
+        objects = Set.new(v)
+        str_date = /\d{14}/.match(objects.first)[0]
+        date = DateTime.strptime(str_date, '%Y%m%d%H%M%S')
+        name = /(^.+\.pgdump).*/.match(objects.first)[1]
+        daily = keep_daily_dates.include?(set.date.to_date)
+        weekly = keep_weekly_dates.include?(set.date.to_date)
+        monthly = keep_monthly_dates.include?(set.date.to_date)
+
+
+        #Backup.new(objects, name, date, daily, weekly, monthly)
+        Backup.new(Set.new(v))
       end
 
     end
