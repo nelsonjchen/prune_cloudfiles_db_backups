@@ -23,7 +23,7 @@ module PruneCloudfilesDbBackups
         /(^.+\.pgdump).*/.match(o)[1]
       end
 
-      @backup_sets = sets.map do |k, v|
+      @backup_sets = sets.map do |_, v|
         objects = Set.new(v)
         datetime = Backup.parse_for_datetime(objects)
 
