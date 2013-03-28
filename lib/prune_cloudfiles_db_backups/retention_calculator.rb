@@ -8,7 +8,14 @@ module PruneCloudfilesDbBackups
 
     # @param [Array] objects from cloudfiles
     def initialize(objects)
+      sets = objects.group_by do |o|
+        /(^.+\.pgdump).*/.match(o)[1]
+      end
 
+      backup_sets = sets.map do |k, v|
+        Backup.new(v)
+      end
+      backup_sets
     end
 
     # @return [Set] a set of files for deletion
