@@ -9,9 +9,10 @@ module PruneCloudfilesDbBackups
                                       auth_url: 'https://identity.api.rackspacecloud.com/v1.0',
                                       service_type:'object-store')
       container = cf.container(opts[:container])
+      objects = container.list_objects
 
       # Based off of http://www.infi.nl/blog/view/id/23/Backup_retention_script
-      calc = RetentionCalculator.new(container.list_objects)
+      calc = RetentionCalculator.new(objects)
     end
 
   end
