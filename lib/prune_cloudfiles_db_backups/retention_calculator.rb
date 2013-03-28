@@ -21,8 +21,7 @@ module PruneCloudfilesDbBackups
       @backup_sets_by_date = backup_sets.group_by do |set|
          set.date.to_date
       end
-
-
+      keep_daily_dates.size
 
     end
 
@@ -43,7 +42,7 @@ module PruneCloudfilesDbBackups
     def keep_monthly_dates
       (0...MONTH_RETENTION).map do |i|
         # First Sunday of every month
-        now.at_beginning_of_month.advance(months: -i).advance(days: 6).beginning_of_week(:sunday)
+        now.at_beginning_of_month.advance(months: -i).advance(days: 6).beginning_of_week(:sunday).to_date
       end
     end
 
