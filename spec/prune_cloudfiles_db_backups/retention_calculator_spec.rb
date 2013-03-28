@@ -26,7 +26,7 @@ module PruneCloudfilesDbBackups
 
       context 'calculations' do
         before(:each) do
-          @calc = RetentionCalculator.new(@objects)
+          @calc = RetentionCalculator.new(objects)
         end
 
         describe '#to_keep' do

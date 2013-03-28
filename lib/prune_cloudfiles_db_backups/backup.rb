@@ -5,6 +5,7 @@ module PruneCloudfilesDbBackups
     attr_accessor :daily, :weekly, :monthly
     attr_reader :date
     attr_reader :objects
+    attr_reader :dbname
 
     # Creates a new instance of backup with a grouped set of related files
     # @param [Set] object_set
