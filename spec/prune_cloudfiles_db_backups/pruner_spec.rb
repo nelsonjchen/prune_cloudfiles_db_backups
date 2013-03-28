@@ -22,13 +22,17 @@ module PruneCloudfilesDbBackups
 
     end
 
-    it 'can be tested with the object_pile' do
+    it 'can be tested with the cloudfile mocked to object_pile' do
       cf = OpenStack::Connection.create(username: 'a_real_username',
                                         api_key: 'a_real_key',
                                         auth_url: 'https://identity.api.rackspacecloud.com/v1.0',
                                         service_type:'object-store')
       container = cf.container('database_backups')
       container.objects.size.should be > 1000
+      size = container.objects.size
+      marked_for_death_object = container.objects[0]
+      container.delete_object(marked_for_death_object)
+      container.objects.size.should be == (size - 1)
     end
 
     it 'establishes a CloudFiles::Connection'
