@@ -60,7 +60,7 @@ module PruneCloudfilesDbBackups
       mwd << '-' unless @monthly
       mwd << ']'
 
-      "#{mwd} #{dbname} #{@datetime.rfc822} (#{objects.size} item(s))"
+      "#{mwd} #{dbname} #{@datetime.rfc822} (#{objects.size} item#{'s' if @objects.size > 1})"
     end
   end
 end
