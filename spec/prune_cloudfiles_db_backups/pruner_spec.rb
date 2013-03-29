@@ -50,9 +50,9 @@ module PruneCloudfilesDbBackups
       end
 
       it 'will actually delete things if #delete! is called' do
-        size = container.objects.size
+        size = @object_pile.size
         @pruner.delete!
-        container.objects.size.should be < size
+        @object_pile.size.should be < size
       end
 
     end
