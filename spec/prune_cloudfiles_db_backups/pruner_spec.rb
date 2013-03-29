@@ -40,14 +40,14 @@ module PruneCloudfilesDbBackups
         @pruner = Pruner.new()
       end
 
-      it 'returns TBD and Keep values'
-
-      it 'returns a sorted list of stuff to keep' do
-        @pruner.date_sorted_keep_list.first
+      it 'returns TBD and Keep values' do
+        @pruner.list_to_delete.should_not be_nil
+        @pruner.list_to_keep.should_not be_nil
       end
 
-      it 'returns a sorted list of stuff to destroy'
-
+      it 'returns a sorted list of stuff to keep with the older stuff at top' do
+        @pruner.date_sorted_keep_list.first.datetime.year.should be == 2012
+      end
 
     end
   end
