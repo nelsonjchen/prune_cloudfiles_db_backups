@@ -4,6 +4,8 @@ require 'prune_cloudfiles_db_backups/retention_calculator'
 
 module PruneCloudfilesDbBackups
   class Pruner
+    attr_reader :list_to_keep, :list_to_delete
+
     def initialize(opts = {})
       logger = Logger.new(STDOUT)
 
@@ -15,7 +17,7 @@ module PruneCloudfilesDbBackups
 
       calc = RetentionCalculator.new(@container.objects)
       @list_to_delete = calc.list_to_delete
-      @list_to_keep = calc.list_to_delete
+      @list_to_keep = calc.list_to_keep
     end
 
     def delete!
@@ -25,11 +27,11 @@ module PruneCloudfilesDbBackups
     end
 
     def date_sorted_keep_list
-      @list_to_keep.sort_by {|a, b| a.date < b.date}
+      @list_to_keep.sort_by {|a| a.datetime}
     end
 
     def date_sorted_delete_list
-      @list_to_delete.sort_by {|a, b| a.date < b.date}
+      @list_to_delete.sort_by {|a| a.datetime}
     end
 
   end

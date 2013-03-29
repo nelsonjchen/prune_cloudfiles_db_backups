@@ -37,7 +37,7 @@ module PruneCloudfilesDbBackups
     end
 
     def dbname
-      @name[/(.+)\d{14}/, 1]
+      @name[/(.+)-\d{14}/, 1]
     end
 
     def deletable?
