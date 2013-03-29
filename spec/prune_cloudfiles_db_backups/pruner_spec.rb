@@ -36,9 +36,17 @@ module PruneCloudfilesDbBackups
     end
 
     context 'running' do
-      it 'returns TBD and Keep values' do
-        Pruner.new({})
+      before(:each) do
+        @pruner = Pruner.new()
       end
+
+      it 'returns TBD and Keep values'
+
+      it 'returns a sorted list of stuff to keep' do
+        @pruner.date_sorted_keep_list.first
+      end
+
+      it 'returns a sorted list of stuff to destroy'
 
 
     end
