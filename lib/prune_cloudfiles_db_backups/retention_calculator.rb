@@ -32,7 +32,7 @@ module PruneCloudfilesDbBackups
         daily = keep_daily_dates.include?(datetime.to_date)
         weekly = keep_weekly_dates.include?(datetime.to_date)
         monthly = keep_monthly_dates.include?(datetime.to_date)
-        daily = true if datetime.to_date > DateTime.now
+        daily = true if datetime.to_date > @now
 
         Backup.new(objects: objects,
                    datetime: datetime,
