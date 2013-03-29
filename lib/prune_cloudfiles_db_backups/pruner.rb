@@ -19,9 +19,10 @@ module PruneCloudfilesDbBackups
     end
 
     def delete!
-      @list_to_delete.map do |set|
-        # TODO: Recursively delete the set
-        @container.delete_object(set)
+      @list_to_delete.map do |backup|
+        backup.objects.map do |object|
+          @container.delete_object(object)
+        end
       end
     end
 
