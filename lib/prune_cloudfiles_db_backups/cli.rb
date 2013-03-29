@@ -10,9 +10,9 @@ module PruneCloudfilesDbBackups
         on :k, :key=,       'Rackspace key to use. Default: ENV["N_RACKSPACE_API_KEY"]', as: String, default: ENV['N_RACKSPACE_API_KEY']
         on :c, :container=, 'Rackspace key to use. Default: database_backups', default: 'database_backups'
         on :y, :yes,        'WARNING: Actually delete files from Rackspace Cloud. Without this option, only a listing of files to be deleted are given'
-        on :d, :daily,     'Set daily retention time. Default: 14', default:14
-        on :w, :weekly,     'Set monthly retention time. Default: 8', default:12
-        on :m, :monthly,     'Set monthly retention time. Default: 8', default:8
+        on :d, :daily,     'Set daily retention time. Default: 14', default:14, as: Integer
+        on :w, :weekly,     'Set monthly retention time. Default: 8', default:12, as: Integer
+        on :m, :monthly,     'Set monthly retention time. Default: 8', default:8, as: Integer
       end
 
       pruner = PruneCloudfilesDbBackups::Pruner.new(opts)

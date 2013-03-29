@@ -1,5 +1,6 @@
 require 'active_support/time'
 require 'prune_cloudfiles_db_backups/backup'
+require 'set'
 
 module PruneCloudfilesDbBackups
   class RetentionCalculator
