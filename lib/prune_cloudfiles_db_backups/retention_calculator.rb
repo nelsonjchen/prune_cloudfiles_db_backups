@@ -66,14 +66,14 @@ module PruneCloudfilesDbBackups
     end
 
     # @return [Set] a set of files for deletion
-    def to_delete
+    def list_to_delete
       @backup_sets.select do |set|
         set.deletable?
       end
     end
 
     # @return [Set] a set of files that will be kept
-    def to_keep
+    def list_to_keep
       @backup_sets.select do |set|
         !set.deletable?
       end

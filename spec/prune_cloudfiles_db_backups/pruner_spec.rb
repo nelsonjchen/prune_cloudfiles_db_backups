@@ -35,7 +35,12 @@ module PruneCloudfilesDbBackups
       container.objects.size.should be == (size - 1)
     end
 
-    it 'establishes a CloudFiles::Connection'
-    it 'returns TBD and Keep values'
+    context 'running' do
+      it 'returns TBD and Keep values' do
+        Pruner.new({})
+      end
+
+
+    end
   end
 end

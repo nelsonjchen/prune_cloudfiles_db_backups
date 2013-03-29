@@ -15,7 +15,7 @@ module PruneCloudfilesDbBackups
 
     describe '#initialize' do
       it 'is created with a hash' do
-        Backup.new({ object_pile: @object_pile,
+        Backup.new({ objects: @object_pile,
                      name: @name,
                      datetime: @datetime,
                      monthly: false,
@@ -28,7 +28,7 @@ module PruneCloudfilesDbBackups
     describe '#deletable?' do
       it 'returns true if none of the daily, weekly, or monthly flags are
  false' do
-        backup = Backup.new({ object_pile: @object_pile,
+        backup = Backup.new({ objects: @object_pile,
                               name: @name,
                               datetime: @datetime,
                               monthly: false,
@@ -40,7 +40,7 @@ module PruneCloudfilesDbBackups
       end
 
       it 'returns false if a certain flag (say, monthly) is set' do
-        backup = Backup.new({ object_pile: @object_pile,
+        backup = Backup.new({ objects: @object_pile,
                               name: @name,
                               datetime: @datetime,
                               monthly: true,
@@ -54,8 +54,8 @@ module PruneCloudfilesDbBackups
 
     describe '#==' do
       it 'allows an equality comparison of backups that checks each field' do
-        one = Backup.new(object_pile: @object_pile, name: @name, datetime: @datetime)
-        two= Backup.new(object_pile: @object_pile, name: @name, datetime: @datetime)
+        one = Backup.new(objects: @object_pile, name: @name, datetime: @datetime)
+        two= Backup.new(objects: @object_pile, name: @name, datetime: @datetime)
         one.should == two
       end
     end

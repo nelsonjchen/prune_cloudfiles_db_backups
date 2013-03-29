@@ -13,7 +13,7 @@ module PruneCloudfilesDbBackups
         DateTime.stub!(:now).and_return(@time_now)
       end
 
-      let (:object_pile) {
+      let (:objects) {
         IO.read("#{File.dirname(__FILE__)}/lists/backup_pile.txt").split("\n")
       }
 
@@ -31,10 +31,10 @@ module PruneCloudfilesDbBackups
           @calc = RetentionCalculator.new(objects)
         end
 
-        describe '#to_keep' do
+        describe '#list_to_keep' do
           it 'contains trans_production-20130322000006.pgdump' do
             backup = Backup.new(
-                object_pile:
+                objects:
                 Set.new(
                     %w(
                     trans_production-20130322000006.pgdump
@@ -45,14 +45,14 @@ module PruneCloudfilesDbBackups
                   )
                 )
             )
-            @calc.to_keep.include?(backup).should be_true
+            @calc.list_to_keep.include?(backup).should be_true
           end
         end
 
-        describe '#to_delete' do
+        describe '#list_to_delete' do
           it 'contains reports_production-20120524000003.pgdump' do
             backup = Backup.new(
-                object_pile:
+                objects:
                 Set.new(
                     %w(
                     reports_production-20120524000003.pgdump
@@ -60,7 +60,7 @@ module PruneCloudfilesDbBackups
                   )
                 )
             )
-            @calc.to_delete.include?(backup).should be_true
+            @calc.list_to_delete.include?(backup).should be_true
           end
         end
       end
