@@ -6,7 +6,7 @@ module PruneCloudfilesDbBackups
 
     # Initialize the Retention Calculator with a list of cloudfile
     # container objects
-    # @param [Array] objects from cloudfiles
+    # @param [Array[String]] objects from cloudfiles
     # @param [Integer] day_retention
     # @param [Integer] week_retention
     # @param [Integer] month_retention
@@ -43,14 +43,14 @@ module PruneCloudfilesDbBackups
 
     # Based off of http://www.infi.nl/blog/view/id/23/Backup_retention_script
 
-    # @return [Set] a calculated array of days to be kept
+    # @return [Set[DateTime]] a calculated array of days to be kept
     def keep_daily_dates
       @daily_dates ||= (0...@day_retention).map do |i|
         @now.at_midnight.advance(days: -i).to_date
       end.to_set
     end
 
-    # @return [Set] a calculated array of days to be kept
+    # @return [Set[DateTime]] a calculated array of days to be kept
     def keep_weekly_dates
       @weekly_dates ||= (0...@week_retention).map do |i|
         # Sunday on the last couple of weeks
@@ -58,7 +58,7 @@ module PruneCloudfilesDbBackups
       end.to_set
     end
 
-    # @return [Set] a calculated array of days to be kept
+    # @return [Set[DateTime]] a calculated array of days to be kept
     def keep_monthly_dates
       @monthly_dates ||= (0...@month_retention).map do |i|
         # First Sunday of every month
@@ -66,14 +66,14 @@ module PruneCloudfilesDbBackups
       end.to_set
     end
 
-    # @return [Set] a set of files for deletion
+    # @return [Set[Backup]] a set of files for deletion
     def list_to_delete
       @backup_sets.select do |set|
         set.deletable?
       end
     end
 
-    # @return [Set] a set of files that will be kept
+    # @return [Set[Backup]] a set of files that will be kept
     def list_to_keep
       @backup_sets.select do |set|
         !set.deletable?
