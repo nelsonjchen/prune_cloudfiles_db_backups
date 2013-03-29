@@ -7,8 +7,6 @@ module PruneCloudfilesDbBackups
     attr_reader :list_to_keep, :list_to_delete
 
     def initialize(opts = {})
-      logger = Logger.new(STDOUT)
-
       cf = OpenStack::Connection.create(username: opts[:user],
                                       api_key: opts[:key],
                                       auth_url: 'https://identity.api.rackspacecloud.com/v1.0',

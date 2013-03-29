@@ -37,7 +37,7 @@ module PruneCloudfilesDbBackups
 
     context 'running' do
       before(:each) do
-        @pruner = Pruner.new()
+        @pruner = Pruner.new({})
       end
 
       it 'returns TBD and Keep values' do
@@ -47,6 +47,12 @@ module PruneCloudfilesDbBackups
 
       it 'returns a sorted list of stuff to keep with the older stuff at top' do
         @pruner.date_sorted_keep_list.first.datetime.year.should be == 2012
+      end
+
+      it 'will actually delete things if #delete! is called' do
+        size = container.objects.size
+        @pruner.delete!
+        container.objects.size.should be < size
       end
 
     end
