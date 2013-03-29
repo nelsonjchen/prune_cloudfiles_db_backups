@@ -15,9 +15,9 @@ module PruneCloudfilesDbBackups
         day_retention = 14,
         week_retention = 8,
         month_retention = 12)
-      @day_retention = day_retention
-      @week_retention = week_retention
-      @month_retention = month_retention
+      @day_retention = day_retention || 14
+      @week_retention = week_retention || 8
+      @month_retention = month_retention || 12
 
       @now = DateTime.now
 
@@ -32,6 +32,7 @@ module PruneCloudfilesDbBackups
         daily = keep_daily_dates.include?(datetime.to_date)
         weekly = keep_weekly_dates.include?(datetime.to_date)
         monthly = keep_monthly_dates.include?(datetime.to_date)
+        daily = true if datetime.to_date > DateTime.now
 
         Backup.new(objects: objects,
                    datetime: datetime,
