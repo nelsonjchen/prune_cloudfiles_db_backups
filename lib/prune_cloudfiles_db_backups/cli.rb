@@ -23,7 +23,7 @@ module PruneCloudfilesDbBackups
       if opts[:y]
         puts 'Commencing deletion!'
         pruner.delete!
-        puts 'Deletion completed'
+        puts 'Deletion completed.'
       else
         puts 'Dry run. No files deleted. Run with -y to commence deletion.'
       end
