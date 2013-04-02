@@ -41,3 +41,5 @@ Parallel.each(objects,
   dest_container = connection.container(opts[:dest])
   dest_container.create_object(object)
 end
+
+progress.finish
