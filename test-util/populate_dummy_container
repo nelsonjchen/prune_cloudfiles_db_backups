@@ -4,8 +4,8 @@ require 'slop'
 
 opts = Slop.parse(strict: true, help: true) do
   banner 'Usage: populate_dummy_container [options]'
-  on :u, :user=, 'Rackspace user to use'
-  on :k, :key=, 'Rackspace API Key'
+  on :u, :user=, 'Rackspace user to use', required: true
+  on :k, :key=, 'Rackspace API Key',  required: true
   on :s, :src=, 'Rackspace source container', default: 'database_backups'
   on :d, :dest=, 'Rackspace destination container', default: 'dummy_container'
 end
