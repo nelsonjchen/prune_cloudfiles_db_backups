@@ -22,7 +22,10 @@ src_container = connection.container(opts[:src])
 dest_container = connection.container(opts[:dest])
 
 objects = src_container.objects
-progress = ProgressBar.create(title: 'Object names copied', total: objects.size)
+progress = ProgressBar.create(title: 'Object names copied',
+                              total: objects.size,
+                              format: '%e %a |%b>%i| %p%% %t'
+)
 
 objects.map do |object|
   dest_container.create_object(object)
