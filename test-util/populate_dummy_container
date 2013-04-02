@@ -20,6 +20,6 @@ connection = OpenStack::Connection.create(
 src_container = connection.container(opts[:src])
 dest_container = connection.container(opts[:dest])
 
-src_container.list_objects.map do |object|
+src_container.objects.map do |object|
   dest_container.create_object(object)
 end
