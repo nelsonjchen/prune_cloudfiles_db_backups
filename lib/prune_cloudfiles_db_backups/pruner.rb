@@ -22,9 +22,12 @@ module PruneCloudfilesDbBackups
       @list_to_keep = calc.list_to_keep
     end
 
-    def delete!
+    def delete!(&block)
       @list_to_delete.map do |backup|
         backup.objects.map do |object|
+          if block
+             block.call(object)
+          end
           @container.delete_object(object)
         end
       end
