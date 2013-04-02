@@ -8,7 +8,7 @@ module PruneCloudfilesDbBackups
         banner 'Usage: prune_cloudfiles_db_backups [options]'
         on :u, :user=,      'Rackspace user to use. Default: ENV["N_RACKSPACE_API_USERNAME"]', default: ENV['N_RACKSPACE_API_USERNAME']
         on :k, :key=,       'Rackspace key to use. Default: ENV["N_RACKSPACE_API_KEY"]', as: String, default: ENV['N_RACKSPACE_API_KEY']
-        on :auth_url=, 'Auth URL Default: https://identity.api.rackspacecloud.com/v1.0', default: 'https://identity.api.rackspacecloud.com/v1.0'
+        on :authurl=, 'Auth URL Default: https://identity.api.rackspacecloud.com/v1.0', default: 'https://identity.api.rackspacecloud.com/v1.0'
         on :c, :container=, 'Rackspace key to use. Default: database_backups', default: 'database_backups'
         on :y, :yes,        'WARNING: Actually delete files from Rackspace Cloud. Without this option, only a listing of files to be deleted are given'
         on :d, :daily,     'Set daily retention time. Default: 14', default:14, as: Integer
