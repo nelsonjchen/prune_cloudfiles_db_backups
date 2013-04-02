@@ -3,5 +3,10 @@ require 'openstack'
 require 'slop'
 
 opts = Slop.parse(strict: true, help: true) do
-  banner 'Usage: populate_dummy_container'
+  banner 'Usage: populate_dummy_container [options]'
+  on :u, :user=, 'Rackspace user to use'
+  on :k, :key=, 'Rackspace API Key'
+  on :s, :src=, 'Rackspace source container', default: 'database_backups'
+  on :d, :dest=, 'Rackspace destination container', default: 'dummy_container'
 end
+
