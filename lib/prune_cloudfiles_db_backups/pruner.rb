@@ -25,7 +25,7 @@ module PruneCloudfilesDbBackups
     def delete!(&block)
       @list_to_delete.map do |backup|
         if block
-          block.call(object)
+          block.call(backup)
         end
         backup.objects.map do |object|
           begin
