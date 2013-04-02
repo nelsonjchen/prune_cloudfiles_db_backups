@@ -1,11 +1,12 @@
 #!/usr/bin/env ruby
 require 'openstack'
 require 'slop'
+require 'ruby-progressbar'
 
 opts = Slop.parse(strict: true, help: true) do
   banner 'Usage: populate_dummy_container [options]'
   on :u, :user=, 'Rackspace user to use', required: true
-  on :k, :key=, 'Rackspace API Key',  required: true
+  on :k, :key=, 'Rackspace API Key', required: true
   on :s, :src=, 'Rackspace source container', default: 'database_backups'
   on :d, :dest=, 'Rackspace destination container', default: 'dummy_container'
 end
@@ -20,6 +21,12 @@ connection = OpenStack::Connection.create(
 src_container = connection.container(opts[:src])
 dest_container = connection.container(opts[:dest])
 
-src_container.objects.map do |object|
+objects = src_container.objects
+progress = ProgressBar.create(title: 'Object names copied', total: objects.size)
+
+objects.map do |object|
   dest_container.create_object(object)
+  progress.increment
 end
+
+progress.finish
