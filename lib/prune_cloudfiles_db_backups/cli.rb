@@ -22,11 +22,11 @@ module PruneCloudfilesDbBackups
       puts pruner.date_sorted_keep_list.map {|backup| "Keep: #{backup.to_s}"}
 
       if opts[:allow_deletion]
-        puts 'Commencing deletion!'
+        puts "Commencing deletion in #{opts[:container]}!"
         pruner.delete!
         puts 'Deletion completed.'
       else
-        puts 'Dry run. No files deleted. Run with --allow_deletion to commence deletion.'
+        puts "Dry run on #{opts[:container]}. No files deleted. Run with --allow_deletion to commence deletion."
       end
 
     end
