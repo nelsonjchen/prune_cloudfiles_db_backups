@@ -2,6 +2,7 @@
 require 'openstack'
 require 'slop'
 require 'ruby-progressbar'
+require 'parallel'
 
 opts = Slop.parse(strict: true, help: true) do
   banner 'Usage: populate_dummy_container [options]'
@@ -11,15 +12,17 @@ opts = Slop.parse(strict: true, help: true) do
   on :d, :dest=, 'Rackspace destination container', default: 'dummy_container'
 end
 
-connection = OpenStack::Connection.create(
-    username: opts[:user],
-    api_key: opts[:key],
-    auth_url: 'https://identity.api.rackspacecloud.com/v1.0',
-    service_type: 'object-store'
-)
+def create_connection(opts)
+  OpenStack::Connection.create(
+      username: opts[:user],
+      api_key: opts[:key],
+      auth_url: 'https://identity.api.rackspacecloud.com/v1.0',
+      service_type: 'object-store'
+  )
+end
+connection = create_connection(opts)
 
 src_container = connection.container(opts[:src])
-dest_container = connection.container(opts[:dest])
 
 objects = src_container.objects
 progress = ProgressBar.create(title: 'Object names copied',
@@ -27,9 +30,15 @@ progress = ProgressBar.create(title: 'Object names copied',
                               format: '%e %a |%b>%i| %p%% %t'
 )
 
-objects.map do |object|
+Parallel.each(objects,
+             {
+                in_threads: 32,
+                finish: lambda { |_, _| progress.increment}
+             }
+            ) do |object|
+  connection = create_connection(opts)
+  dest_container = connection.container(opts[:dest])
   dest_container.create_object(object)
-  progress.increment
 end
 
 progress.finish
