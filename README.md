@@ -10,11 +10,9 @@ This does retains backup retention:
 * Keep weekly backups for 8 weeks.
 * Keep monthy backups for 12 months.
 
-## Serious Issues aka don't use this now.
+## Usage
 
-What to do about timezones?
-
-There should be tests.
+*TODO*
 
 ## Installation
 
