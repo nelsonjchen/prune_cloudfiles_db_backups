@@ -10,3 +10,16 @@ opts = Slop.parse(strict: true, help: true) do
   on :d, :dest=, 'Rackspace destination container', default: 'dummy_container'
 end
 
+connection = OpenStack::Connection.create(
+    username: opts[:user],
+    api_key: opts[:key],
+    auth_url: 'https://identity.api.rackspacecloud.com/v1.0',
+    service_type: 'object-store'
+)
+
+src_container = connection.container(opts[:src])
+dest_container = connection.container(opts[:dest])
+
+src_container.list_objects.map do |object|
+  dest_container.create_object(object)
+end
