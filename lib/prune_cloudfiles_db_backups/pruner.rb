@@ -24,10 +24,10 @@ module PruneCloudfilesDbBackups
 
     def delete!(&block)
       @list_to_delete.map do |backup|
+        if block
+          block.call(object)
+        end
         backup.objects.map do |object|
-          if block
-             block.call(object)
-          end
           begin
             @container.delete_object(object)
           rescue OpenStack::Exception::ItemNotFound
