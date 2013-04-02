@@ -29,7 +29,7 @@ module PruneCloudfilesDbBackups
                                       total: pruner.list_to_delete.size,
                                       format: '%e %a |%b>%i| %p%% %t'
         )
-        pruner.delete! do |object|
+        pruner.delete! do |_|
           progress.increment
         end
         progress.finish

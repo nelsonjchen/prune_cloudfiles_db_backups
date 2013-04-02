@@ -28,7 +28,11 @@ module PruneCloudfilesDbBackups
           if block
              block.call(object)
           end
-          @container.delete_object(object)
+          begin
+            @container.delete_object(object)
+          rescue OpenStack::Exception::ItemNotFound
+            # ignored
+          end
         end
       end
     end
