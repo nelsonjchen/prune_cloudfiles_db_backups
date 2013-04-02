@@ -26,7 +26,7 @@ module PruneCloudfilesDbBackups
         pruner.delete!
         puts 'Deletion completed.'
       else
-        puts 'Dry run. No files deleted. Run with -allow_deletion to commence deletion.'
+        puts 'Dry run. No files deleted. Run with --allow_deletion to commence deletion.'
       end
 
     end
