@@ -20,22 +20,23 @@ def create_connection(opts)
       service_type: 'object-store'
   )
 end
-connection = create_connection(opts)
 
+connection = create_connection(opts)
+dest_container = connection.container(opts[:dest])
 src_container = connection.container(opts[:src])
 
-objects = src_container.objects
+objects = src_container.objects - dest_container.objects
+
 progress = ProgressBar.create(title: 'Object names copied',
                               total: objects.size,
                               format: '%e %a |%b>%i| %p%% %t'
 )
-
 Parallel.each(objects,
-             {
-                in_processes: 32,
-                finish: lambda { |_, _| progress.increment}
-             }
-            ) do |object|
+              {
+                  in_processes: 32,
+                  finish: lambda { |_, _| progress.increment }
+              }
+) do |object|
   connection = create_connection(opts)
   dest_container = connection.container(opts[:dest])
   dest_container.create_object(object)
