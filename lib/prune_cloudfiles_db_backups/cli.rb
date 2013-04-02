@@ -10,7 +10,7 @@ module PruneCloudfilesDbBackups
         on :k, :key=,       'Rackspace key to use. Default: ENV["N_RACKSPACE_API_KEY"]', as: String, default: ENV['N_RACKSPACE_API_KEY']
         on :authurl=, 'Auth URL Default: https://identity.api.rackspacecloud.com/v1.0', default: 'https://identity.api.rackspacecloud.com/v1.0'
         on :c, :container=, 'Rackspace key to use. Default: database_backups', default: 'database_backups'
-        on :y, :yes,        'WARNING: Actually delete files from Rackspace Cloud. Without this option, only a listing of files to be deleted are given'
+        on :allow_deletion,        'WARNING: Actually delete files from Rackspace Cloud. Without this option, only a listing of files to be deleted are given'
         on :d, :daily,     'Set daily retention time. Default: 14', default:14, as: Integer
         on :w, :weekly,     'Set weekly retention time. Default: 12', default:12, as: Integer
         on :m, :monthly,     'Set monthly retention time. Default: 8', default:8, as: Integer
@@ -21,12 +21,12 @@ module PruneCloudfilesDbBackups
       puts pruner.date_sorted_delete_list.map {|backup| "Delete: #{backup.to_s}"}
       puts pruner.date_sorted_keep_list.map {|backup| "Keep: #{backup.to_s}"}
 
-      if opts[:y]
+      if opts[:allow_deletion]
         puts 'Commencing deletion!'
         pruner.delete!
         puts 'Deletion completed.'
       else
-        puts 'Dry run. No files deleted. Run with -y to commence deletion.'
+        puts 'Dry run. No files deleted. Run with -allow_deletion to commence deletion.'
       end
 
     end
