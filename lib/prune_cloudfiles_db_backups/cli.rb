@@ -25,7 +25,7 @@ module PruneCloudfilesDbBackups
 
       if opts[:allow_deletion]
         puts "Commencing deletion in #{opts[:container]}!"
-        progress = ProgressBar.create(title: 'Object deleted',
+        progress = ProgressBar.create(title: 'Objects deleted',
                                       total: pruner.list_to_delete.size,
                                       format: '%e %a |%b>%i| %p%% %t'
         )
