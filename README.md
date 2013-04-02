@@ -1,5 +1,7 @@
 # PruneCfDbBackups
 
+[![Code Climate](https://codeclimate.com/github/SmartReceipt/prune_cloudfiles_db_backups.png)](https://codeclimate.com/github/SmartReceipt/prune_cloudfiles_db_backups)
+
 This gem helps prune useless database backups from Cloudfiles.
 
 This does retains backup retention:
