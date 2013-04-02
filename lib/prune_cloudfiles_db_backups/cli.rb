@@ -1,5 +1,7 @@
 require 'slop'
 require 'prune_cloudfiles_db_backups/pruner'
+require 'ruby-progressbar'
+
 
 module PruneCloudfilesDbBackups
   class CLI
@@ -23,7 +25,13 @@ module PruneCloudfilesDbBackups
 
       if opts[:allow_deletion]
         puts "Commencing deletion in #{opts[:container]}!"
-        pruner.delete!
+        progress = ProgressBar.create(title: 'Object deleted',
+                                      total: pruner.list_to_delete.size,
+                                      format: '%e %a |%b>%i| %p%% %t'
+        )
+        pruner.delete! do |object|
+          progress.increment
+        end
         puts 'Deletion completed.'
       else
         puts "Dry run on #{opts[:container]}. No files deleted. Run with --allow_deletion to commence deletion."

@@ -25,4 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'openstack', '~> 1.0.9'
   spec.add_dependency 'slop', '~> 3.4.4'
   spec.add_dependency 'activesupport', '~> 3.2.13'
+  spec.add_dependency 'ruby-progressbar', '~> 1.0.2'
 end
