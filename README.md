@@ -20,7 +20,7 @@ The first deletion run, if not run for a year, will take a very long time.
 
 ## Installation
 
-    $ gem install prune_cf_db_backups
+    $ gem install prune_cloudfiles_db_backups
 
 Or stick it in bundler, a chef recipe, or whatever!
 
