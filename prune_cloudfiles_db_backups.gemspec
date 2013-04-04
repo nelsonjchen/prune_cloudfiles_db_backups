@@ -7,11 +7,11 @@ Gem::Specification.new do |spec|
   spec.name          = 'prune_cloudfiles_db_backups'
   spec.version       = PruneCloudfilesDbBackups::VERSION
   spec.authors       = ['Nelson Chen']
-  spec.email         = %w(crazysim@gmail.com)
-  spec.description   = 'Prunes SmartReceipts DB Backups'
+  spec.email         = %w(nelson.chen@receipt.com)
+  spec.description   = 'Prunes SmartReceipts DB Backups from Cloudfiles'
   spec.summary       = spec.description
-  spec.homepage      = ''
-  spec.license       = 'All Rights Reserved'
+  spec.homepage      = 'https://github.com/SmartReceipt/prune_cloudfiles_db_backups'
+  spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
