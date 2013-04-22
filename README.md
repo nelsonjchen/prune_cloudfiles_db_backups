@@ -1,6 +1,9 @@
 # PruneCfDbBackups
 
+[![Build Status](https://travis-ci.org/SmartReceipt/prune_cloudfiles_db_backups.png?branch=master)](https://travis-ci.org/SmartReceipt/prune_cloudfiles_db_backups)
+[![Coverage Status](https://coveralls.io/repos/SmartReceipt/prune_cloudfiles_db_backups/badge.png?branch=master)](https://coveralls.io/r/SmartReceipt/prune_cloudfiles_db_backups)
 [![Code Climate](https://codeclimate.com/github/SmartReceipt/prune_cloudfiles_db_backups.png)](https://codeclimate.com/github/SmartReceipt/prune_cloudfiles_db_backups)
+[![Dependency Status](https://gemnasium.com/SmartReceipt/prune_cloudfiles_db_backups.png)](https://gemnasium.com/SmartReceipt/prune_cloudfiles_db_backups)
 
 This gem helps prune useless database backups from Cloudfiles.
 
