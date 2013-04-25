@@ -6,4 +6,3 @@ gemspec
 group :development do
   gem 'parallel'
 end
-
