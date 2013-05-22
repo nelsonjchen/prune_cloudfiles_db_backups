@@ -12,6 +12,9 @@ module PruneCloudfilesDbBackups
 
       @object_pile = IO.read("#{File.dirname(__FILE__)}/lists/backup_pile.txt").split("\n")
       container = double('an openstack container')
+      container.stub(:count) {
+        @object_pile.length
+      }
       container.stub(:objects) {
         @object_pile
       }
