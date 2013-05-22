@@ -13,7 +13,14 @@ module PruneCloudfilesDbBackups
                                       service_type:'object-store')
       @container = cf.container(opts[:container])
 
-      calc = RetentionCalculator.new(@container.objects,
+      @objects = @container.objects
+      count = @container.count.to_i
+      while @objects.size < count do
+        last = @objects.pop
+        @objects.concat(@container.objects(marker: last))
+      end
+
+      calc = RetentionCalculator.new(@objects,
                                      opts[:daily],
                                      opts[:weekly],
                                      opts[:monthly]
