@@ -16,8 +16,7 @@ module PruneCloudfilesDbBackups
       @objects = @container.objects
       count = @container.count.to_i
       while @objects.size < count do
-        last = @objects.pop
-        @objects.concat(@container.objects(marker: last))
+        @objects.concat(@container.objects(marker: @objects.last))
       end
 
       calc = RetentionCalculator.new(@objects,
