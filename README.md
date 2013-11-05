@@ -11,7 +11,7 @@ The current backup retention defaults enforced by this tool are:
 
 * Keep hourly files for two weeks.
 * Keep weekly backups for 8 weeks on the Sundays.
-* Keep monthy backups for 12 months on the Sundays.
+* Keep monthy backups for 12 months on the first Sunday.
 
 ## Usage
 
